@@ -1,33 +1,38 @@
 class Krate < Formula
   desc "CLI for the krate micro-VM platform"
   homepage "https://kannister.app"
-  version "0.19.0"
+  version "0.36.0"
   license "Commercial"
 
-  url "https://github.com/kannister-app/krate/releases/download/v0.19.0/krate-0.19.0-arm64-darwin.tar.gz"
-  sha256 "3c655d1b3455ca309936c397108e938bd35a56a751bbe22f7fa9a33e82697b31"
+  url "https://github.com/kannister-app/krate/releases/download/v0.36.0/krate-0.36.0-arm64-darwin.tar.gz"
+  sha256 "0000000000000000000000000000000000000000000000000000000000000000"
 
   depends_on :macos
   depends_on arch: :arm64
 
   def install
     bin.install "krate"
-    bin.install "anvild"
+    bin.install "krated"
   end
 
   def caveats
     <<~EOS
-      krate automatically starts anvild when needed — just run:
-        krate run alpine:latest
+      Test the install:
+        krate run hello-krate
 
       Log in to your krate account:
         krate login
 
-      Start a dev environment (auto-detects docker-compose.yml):
-        krate up
+      Check configuration:
+        krate info
 
-      Submit feedback:
-        krate feedback "message"
+      VM debug logging (recommended for dev work):
+        echo 'export KRATE_VM_DEBUG=1' >> ~/.zshrc
+        source ~/.zshrc
+
+      With KRATE_VM_DEBUG=1, every VM writes a forensic transcript to
+      ~/.krate/logs/<workload-id>/ and stays open after the workload
+      exits so you can `krate exec <id> sh` to inspect a broken VM.
 
       No manual daemon management required.
     EOS

@@ -5,7 +5,7 @@ Micro-VM engine for developer workload isolation.
 ## Install
 
 ```sh
-brew install kannister-app/tap/krate
+brew install krate-dot-sh/tap/krate
 ```
 
 ## Usage

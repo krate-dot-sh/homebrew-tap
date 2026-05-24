@@ -15,6 +15,18 @@ class Krate < Formula
     bin.install "krated"
   end
 
+  # Kill any running krated after install. brew upgrade overwrites the
+  # binary on disk but the running process is still the old code in
+  # memory — a CLI/daemon version mismatch causes subtle bugs (stale
+  # protocol handling, missing fixes, errors that don't carry the
+  # latest error-chain plumbing). The daemon auto-restarts on the next
+  # `krate` call, so killing it is silently self-healing.
+  # `|| true` because pkill returns non-zero when nothing matched,
+  # which isn't a failure condition.
+  def post_install
+    system "/bin/sh", "-c", "pkill krated 2>/dev/null || true"
+  end
+
   def caveats
     <<~EOS
       Test the install:

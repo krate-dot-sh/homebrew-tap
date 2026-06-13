@@ -28,7 +28,7 @@ class Krate < Formula
   end
 
   def caveats
-    <<~EOS
+    base = <<~EOS
       Test the install:
         krate run hello-krate
 
@@ -48,5 +48,29 @@ class Krate < Formula
 
       No manual daemon management required.
     EOS
+
+    # GitHub transparently redirects kannister-app/homebrew-tap to
+    # krate-dot-sh/homebrew-tap (same backing repo). So both tap names
+    # install the same binary, but users on the legacy tap name keep
+    # the stale "kannister-app/tap" in their brew config forever. Detect
+    # via `self.tap.name` (returns the URL the user typed) and nudge
+    # only the legacy-tap users to switch — krate-dot-sh/tap users see
+    # nothing extra.
+    legacy = (tap && tap.name == "kannister-app/tap") rescue false
+    return base unless legacy
+
+    base + <<~LEGACY
+
+      ────────────────────────────────────────────────────────────────────
+      You installed krate via the deprecated kannister-app/tap. This tap
+      is being phased out (the krate-dot-sh org is now canonical). Please
+      migrate so future upgrades keep working:
+
+        brew untap kannister-app/tap
+        brew tap krate-dot-sh/tap
+        brew install krate-dot-sh/tap/krate
+
+      Your installed binary is unchanged; this is a config cleanup only.
+    LEGACY
   end
 end

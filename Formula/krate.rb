@@ -1,11 +1,11 @@
 class Krate < Formula
   desc "CLI for the krate micro-VM platform"
   homepage "https://krate.sh"
-  version "0.36.17"
+  version "0.36.18"
   license "Commercial"
 
-  url "https://github.com/krate-dot-sh/krate-releases/releases/download/v0.36.17/krate-0.36.17-arm64-darwin.tar.gz"
-  sha256 "81ed83bf8bdea1b22162c806ab2867759d9f1e53166bbb061420294f9ae622c3"
+  url "https://github.com/krate-dot-sh/krate-releases/releases/download/v0.36.18/krate-0.36.18-arm64-darwin.tar.gz"
+  sha256 "c7814e19903ef1bad39ea8cd45abf9f8dcd2687c1d4e65d3bf50e7cddf60756c"
 
   depends_on :macos
   depends_on arch: :arm64

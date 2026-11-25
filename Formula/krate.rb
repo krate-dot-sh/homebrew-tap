@@ -17,7 +17,7 @@ class Krate < Formula
 
   # Kill any running krated after install. brew upgrade overwrites the
   # binary on disk but the running process is still the old code in
-  # memory — a CLI/daemon version mismatch causes subtle bugs (stale
+  # memory: a CLI/daemon version mismatch causes subtle bugs (stale
   # protocol handling, missing fixes, errors that don't carry the
   # latest error-chain plumbing). The daemon auto-restarts on the next
   # `krate` call, so killing it is silently self-healing.
@@ -54,7 +54,7 @@ class Krate < Formula
     # install the same binary, but users on the legacy tap name keep
     # the stale "kannister-app/tap" in their brew config forever. Detect
     # via `self.tap.name` (returns the URL the user typed) and nudge
-    # only the legacy-tap users to switch — krate-dot-sh/tap users see
+    # only the legacy-tap users to switch: krate-dot-sh/tap users see
     # nothing extra.
     legacy = (tap && tap.name == "kannister-app/tap") rescue false
     return base unless legacy

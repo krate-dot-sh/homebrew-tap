@@ -13,6 +13,9 @@ class Krate < Formula
   def install
     bin.install "krate"
     bin.install "krated"
+    # Present from 0.42.0 on. Through 0.41.0 the tarball carried only the two
+    # binaries, so an install left no terms on disk at all.
+    prefix.install "LICENSE" if File.exist?("LICENSE")
   end
 
   # Kill any running krated after install. brew upgrade overwrites the
